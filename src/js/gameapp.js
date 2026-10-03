@@ -1,4 +1,5 @@
 import { el } from "./dom";
+import { openModal } from "./modal";
 import { getLeaders, saveResult } from "./storage";
 
 export class GameApp {
@@ -211,5 +212,99 @@ export class GameApp {
         this.phase = "IDLE";
       }, 1200);
     }
+  }
+
+  openVictoryModal() {
+    let closeModalFunc;
+
+    const modalContent = el(
+      "div",
+      { className: "victory-modal" },
+      el("h2", { className: "modal-title", textContent: "Congrats, you won!" }),
+      el(
+        "p",
+        { className: "modal-text" },
+        "You found all the pairs in ",
+        el("strong", {}, String(this.movesCount)),
+        " moves.",
+      ),
+      el(
+        "div",
+        { className: "modal-actions" },
+        el("button", {
+          className: "btn btn-primary",
+          textContent: "New game",
+          onClick: () => {
+            closeModalFunc();
+            this.startNewGame();
+          },
+        }),
+        el("button", {
+          className: "btn btn-secondary",
+          textContent: "Close",
+          onClick: () => closeModalFunc(),
+        }),
+      ),
+    );
+
+    closeModalFunc = openModal(modalContent);
+  }
+
+  openLeaderboardModal() {
+    const leaders = getLeaders();
+
+    let contentToDisplay;
+
+    if (leaders.length === 0) {
+      contentToDisplay = el("p", {
+        className: "modal-text no-results",
+        textContent: "There are not results here yet, be the first!",
+      });
+    } else {
+      const tableRows = leaders.map((item, index) => {
+        return el(
+          "tr",
+          { className: "table-row" },
+          el("td", { className: "cell-place" }, `${index + 1}`),
+          el("td", { className: "cell-moves" }, `${item.moves}`),
+          el("td", { className: "cell-date" }, `${item.date}`),
+        );
+      });
+
+      contentToDisplay = el(
+        "table",
+        { className: "leaderboard-table" },
+        el(
+          "thead",
+          {},
+          el(
+            "tr",
+            {},
+            el("th", {}, "Place"),
+            el("th", {}, "Moves"),
+            el("th", {}, "Date"),
+          ),
+        ),
+        el("tbody", {}, ...tableRows),
+      );
+    }
+    let closeModalFunc;
+
+    const modalContent = el(
+      "div",
+      { className: "leaderboard-modal" },
+      el("h2", { className: "modal-title", textContent: "🏆 LeaderBoard" }),
+      contentToDisplay,
+      el(
+        "div",
+        { className: "modal-actions" },
+        el("button", {
+          className: "btn btn-secondary",
+          textContent: "Close",
+          onClick: () => closeModalFunc(),
+        }),
+      ),
+    );
+    closeModalFunc = openModal(modalContent);
   }
 }
