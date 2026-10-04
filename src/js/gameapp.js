@@ -5,14 +5,14 @@ import { getLeaders, saveResult } from "./storage";
 export class GameApp {
   constructor() {
     this.images = [
-      "1.webp",
-      "2.webp",
-      "3.webp",
-      "4.webp",
-      "5.webp",
-      "6.webp",
-      "7.webp",
-      "8.webp",
+      "bat.webp",
+      "book.webp",
+      "cat.webp",
+      "cauldron.webp",
+      "ghost.webp",
+      "magical_ball.webp",
+      "mummy.webp",
+      "pumpkin.webp",
     ];
 
     this.cards = [];
