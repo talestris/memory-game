@@ -71,7 +71,7 @@ export class GameApp {
 
     const appContainer = el(
       "div",
-      { className: appContainer },
+      { className: "appContainer" },
       header,
       infoPanel,
       this.dom.grid,

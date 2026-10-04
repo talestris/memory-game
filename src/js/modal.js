@@ -19,7 +19,7 @@ export function openModal(contentElement, onClose) {
     className: "modal-close-btn",
     textContent: "✕",
     "aria-label": "Close modal",
-    onClick: dialog.close(),
+    onClick: () => dialog.close(),
   });
 
   const dialogContent = el(

@@ -3,5 +3,5 @@ import { GameApp } from "./gameapp";
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = new GameApp();
-  app.init;
+  app.init();
 });
