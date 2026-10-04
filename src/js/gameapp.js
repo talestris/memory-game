@@ -71,7 +71,7 @@ export class GameApp {
 
     const appContainer = el(
       "div",
-      { className: "appContainer" },
+      { className: "app-container" },
       header,
       infoPanel,
       this.dom.grid,
@@ -152,6 +152,8 @@ export class GameApp {
         cardBack,
       );
 
+      cardData.element = cardElement;
+
       if (cardData.isOpen || cardData.isMatched) {
         cardElement.classList.add("flipped");
       }
@@ -204,7 +206,16 @@ export class GameApp {
       this.timeoutId = setTimeout(() => {
         this.firstCard.isOpen = false;
         this.secondCard.isOpen = false;
-        this.renderBoard();
+
+        if (this.firstCard.element) {
+          this.firstCard.element.classList.remove("flipped");
+        }
+
+        if (this.secondCard.element) {
+          this.secondCard.element.classList.remove("flipped");
+        }
+
+        //this.renderBoard();
 
         this.firstCard = null;
         this.secondCard = null;
