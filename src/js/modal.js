@@ -3,7 +3,7 @@ import { el } from "./dom";
 export function openModal(contentElement, onClose) {
   document.body.classList.add("modal-open");
 
-  const closeModal = () => {
+  /*const closeModal = () => {
     modalOverlay.remove();
     document.body.classList.remove("modal-open");
     document.removeEventListener("keydown", handleEsc);
@@ -13,16 +13,41 @@ export function openModal(contentElement, onClose) {
   const handleEsc = (event) => {
     if (event.key === "Escape") closeModal();
   };
-  document.addEventListener("keydown", handleEsc);
+  document.addEventListener("keydown", handleEsc);*/
 
   const closeBtn = el("button", {
     className: "modal-close-btn",
     textContent: "✕",
     "aria-label": "Close modal",
-    onClick: closeModal,
+    onClick: dialog.close(),
   });
 
-  const modalContent = el(
+  const dialogContent = el(
+    "div",
+    { className: "modal-content" },
+    closeBtn,
+    contentElement,
+  );
+
+  const dialog = el(
+    "dialog",
+    {
+      className: "game-dialog",
+      onClick: (event) => {
+        if (event.target === dialog) {
+          dialog.close();
+        }
+      },
+      onClose: () => {
+        document.body.classList.remove("modal-open");
+        dialog.remove();
+        if (typeof onClose === "function") onClose();
+      },
+    },
+    dialogContent,
+  );
+
+  /*const modalContent = el(
     "div",
     {
       className: "modal-content",
@@ -39,8 +64,9 @@ export function openModal(contentElement, onClose) {
       onClick: closeModal,
     },
     modalContent,
-  );
-  document.body.appendChild(modalOverlay);
+  );*/
+  document.body.appendChild(dialog);
+  dialog.showModal();
 
-  return closeModal;
+  return () => dialog.close();
 }
