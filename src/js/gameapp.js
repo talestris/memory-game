@@ -31,19 +31,31 @@ export class GameApp {
   }
 
   init() {
+    const mainTitle = el(
+      "h1",
+      { className: "visually-hidden" },
+      "Halloween Memory Game",
+    );
+
     const header = el(
       "header",
       { className: "game-header" },
-      el("button", {
-        className: "btn btn-new-game",
-        textContent: "New Game",
-        onClick: () => this.startNewGame(),
-      }),
-      el("button", {
-        className: "btn btn-leaderboard",
-        textContent: "Leaders",
-        onClick: () => this.openLeaderboardModal(),
-      }),
+      el(
+        "button",
+        {
+          className: "btn btn-new-game",
+          onClick: () => this.startNewGame(),
+        },
+        "New Game",
+      ),
+      el(
+        "button",
+        {
+          className: "btn btn-leaderboard",
+          onClick: () => this.openLeaderboardModal(),
+        },
+        "Leaders",
+      ),
     );
 
     this.dom.movesCounter = el("span", {
@@ -72,6 +84,7 @@ export class GameApp {
     const appContainer = el(
       "div",
       { className: "app-container" },
+      mainTitle,
       header,
       infoPanel,
       this.dom.grid,
@@ -231,7 +244,7 @@ export class GameApp {
     const modalContent = el(
       "div",
       { className: "victory-modal" },
-      el("h2", { className: "modal-title", textContent: "Congrats, you won!" }),
+      el("h2", { className: "modal-title" }, "Congrats, you won!"),
       el(
         "p",
         { className: "modal-text" },
@@ -242,19 +255,25 @@ export class GameApp {
       el(
         "div",
         { className: "modal-actions" },
-        el("button", {
-          className: "btn btn-primary",
-          textContent: "New game",
-          onClick: () => {
-            closeModalFunc();
-            this.startNewGame();
+        el(
+          "button",
+          {
+            className: "btn btn-primary",
+            onClick: () => {
+              closeModalFunc();
+              this.startNewGame();
+            },
           },
-        }),
-        el("button", {
-          className: "btn btn-secondary",
-          textContent: "Close",
-          onClick: () => closeModalFunc(),
-        }),
+          "New game",
+        ),
+        el(
+          "button",
+          {
+            className: "btn btn-secondary",
+            onClick: () => closeModalFunc(),
+          },
+          "Close",
+        ),
       ),
     );
 
@@ -267,10 +286,13 @@ export class GameApp {
     let contentToDisplay;
 
     if (leaders.length === 0) {
-      contentToDisplay = el("p", {
-        className: "modal-text no-results",
-        textContent: "There are not results here yet, be the first!",
-      });
+      contentToDisplay = el(
+        "p",
+        {
+          className: "modal-text no-results",
+        },
+        "There are not results here yet, be the first!",
+      );
     } else {
       const tableRows = leaders.map((item, index) => {
         return el(
@@ -304,16 +326,19 @@ export class GameApp {
     const modalContent = el(
       "div",
       { className: "leaderboard-modal" },
-      el("h2", { className: "modal-title", textContent: "🏆 LeaderBoard" }),
+      el("h2", { className: "modal-title" }, "🏆 LeaderBoard"),
       contentToDisplay,
       el(
         "div",
         { className: "modal-actions" },
-        el("button", {
-          className: "btn btn-secondary",
-          textContent: "Close",
-          onClick: () => closeModalFunc(),
-        }),
+        el(
+          "button",
+          {
+            className: "btn btn-secondary",
+            onClick: () => closeModalFunc(),
+          },
+          "Close",
+        ),
       ),
     );
     closeModalFunc = openModal(modalContent);

@@ -15,11 +15,13 @@ body {
     margin: 0;
     padding: 0;
     font-family: $font-main;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
+    overflow: hidden;
+    background-color: $color-body;
 
     &.modal-open {
         overflow: hidden;
@@ -29,9 +31,27 @@ body {
 .app-container {
     width: 100%;
     max-width: clamp(20rem, 90vw, 50rem);
+    max-height: 100vh;
     margin: 0 auto;
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: clamp(0.75rem, 2vw, 1.5rem);
     display: flex;
     flex-direction: column;
-    gap: clamp(1rem, 2.5vw, 1.5rem);
+    gap: clamp(0.25rem, 0.75vw, 0.5rem);
+    overflow: hidden;
+    border: 0.125rem dotted rgba($color-primary, 0.3);
+    border-radius: 0.5rem;
+    background-color: $color-bg;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
 }

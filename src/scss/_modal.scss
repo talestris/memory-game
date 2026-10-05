@@ -1,10 +1,14 @@
+@use '../scss/variables' as *;
+
 .game-dialog {
     width: clamp(18rem, 85vw, 32rem);
     padding: clamp(1.5rem, 4vw, 2.5rem);
-    color: $color-text;
-    border: 0.125rem solid rgba($color-primary, 0.5);
+    color: $color-body;
+    border: 0.5rem solid rgba($color-primary, 0.5);
     border-radius: 0.75rem;
     box-shadow: 0 0.625rem 1.563rem rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
 
     &:focus-visible {
         outline: none;
@@ -25,16 +29,17 @@
 
 .modal-close-btn {
     position: absolute;
-    top: -0.5rem;
-    right: -0.5rem;
+    top: -1.5rem;
+    right: -1rem;
     background: none;
     border: none;
-    color: $color-text;
+    color: $color-primary;
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.5rem;
     line-height: 1;
     transition: color 0.2s;
+    z-index: 2;
 
     &:hover {
         color: $color-primary;
@@ -49,9 +54,11 @@
 
 .modal-text {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     line-height: 1.5;
     text-align: center;
+    padding-bottom: 0.5rem;
 
     &.no-results {
         font-style: italic;
@@ -61,22 +68,28 @@
 .modal-actions {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 2rem;
     margin-top: 0.5rem;
 
     .btn-primary {
-        background-color: $color-primary;
-        color: $color-text;
+        background-color: $color-btn;
+        color: $color-primary;
     }
 
     .btn-secondary {
         background-color: transparent;
-        border: 1px solid rgba($color-text, 0.2);
+        border: 3px solid rgba($color-btn, 0.2);
     }
 
     &:hover {
-        background-color: rgba($color-text, 0.05);
+        background-color: rgba($color-primary, 0.05);
     }
+}
+
+.leaderboard-modal {
+display: flex;
+flex-direction: column;
+align-content: center;
 }
 
 .leaderboard-table {
@@ -84,10 +97,43 @@
     border-collapse: collapse;
     margin: 0.5rem 0;
     font-size: clamp(0.875rem, 2vw, 1rem);
+    text-align: center;
 
     th,
     td {
         padding: 0.75rem;
-        text-align: left;
+        text-align: center;
+    }
+
+    th {
+        border-bottom: 2px solid rgba($color-primary, 0.1);
+        font-weight: 600;
+    }
+
+    .table-row {
+        border-bottom: 2px solid rgba($color-primary, 0.05);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background-color: rgba($color-primary, 0.02);
+        }
+    }
+
+    .cell-place {
+        font-weight: bold;
+        color: $color-primary;
+        width: 20%;
+    }
+
+    .cell-moves {
+        width: 30%;
+    }
+
+    .cell-date {
+        color: $color-body;
+        width: 50%;
     }
 }
