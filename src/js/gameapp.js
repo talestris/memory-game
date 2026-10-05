@@ -228,8 +228,6 @@ export class GameApp {
           this.secondCard.element.classList.remove("flipped");
         }
 
-        //this.renderBoard();
-
         this.firstCard = null;
         this.secondCard = null;
         this.timeoutId = null;
