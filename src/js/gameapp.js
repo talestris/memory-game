@@ -150,7 +150,7 @@ export class GameApp {
       const cardFront = el(
         "div",
         { className: "card-front" },
-        el("img", { src: `/images/${cardData.image}`, alt: "card image" }),
+        el("img", { src: `images/${cardData.image}`, alt: "card image" }),
       );
 
       const cardBack = el("div", { className: "card-back" });
